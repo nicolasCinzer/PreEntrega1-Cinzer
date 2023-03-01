@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link
+      rel="stylesheet"
+      href="style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <title>Calculadora de Pesaje</title>
+  </head>
+  <body>
+    <main>
+      <h1 class="animate__animated animate__bounceInDown">Calculadora de Pesaje</h1>
+      <div class="inputs">
+        <input
+          id="percentInput"
+          type="number"
+          placeholder="Ingrese un Porcentaje"
+          class="animate__animated animate__bounceInLeft"
+        />
+        <input
+          id="weightInput"
+          type="number"
+          placeholder="Ingrese un Peso"
+          class="animate__animated animate__bounceInRight"
+        />
+      </div>
+      <div class="currentWeight animate__animated animate__fadeIn">Peso calculado <span id="currentWeight">0</span></div>
+      <table
+        id="calculusTable"
+        class="animate__animated animate__bounceInUp"
+      >
+        <caption>
+          Resultados
+        </caption>
+        <tbody id="calculusBody"></tbody>
+      </table>
+      <div
+        id="warningMessage"
+        class="animate__animated animate__bounceInUp"
+      ></div>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>
