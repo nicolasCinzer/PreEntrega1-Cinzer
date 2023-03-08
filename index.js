@@ -131,10 +131,21 @@ const sortItems = () => {
 addPercent();
 addWeight();
 
-const peso = prompt('Ingrese el peso que desea calcular:');
-const porcentaje = prompt('Ingrese el porcentaje que desea calcular:');
 
-alert(`El ${porcentaje}% de ${peso}KG es: ${parseInt(peso * (porcentaje / 100))}KG`);
+// SIMULADOR INTERACTIVO //
+const peso = prompt('Ingrese el peso que desea calcular:');
+const porcentaje = prompt('Ingrese la cantidad de porcentajes que desea calcular:');
+
+for (let i = 1; i <= porcentaje; i++) {
+  let porcentaje = prompt(`Ingrese el porcentaje ${i}:`)
+  
+  if (porcentaje < 0) {
+    alert('El porcentaje debe ser mayor a cero')
+    continue;
+  }
+  alert(`El ${porcentaje}% de ${peso}KG es: ${parseInt(peso * (porcentaje / 100))}KG`);
+}
+// SIMULADOR INTERACTIVO //
 
 weightInput.value = peso;
 percentInput.value = porcentaje;
