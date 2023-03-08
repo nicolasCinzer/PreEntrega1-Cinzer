@@ -8,67 +8,76 @@ const percentArr = [];
 
 const addPercent = () => {
   percentInput.addEventListener('keydown', evt => {
-    let percent = parseInt(percentInput.value);
-    let weight = parseInt(currentWeight.innerHTML);
-    if (evt.key.toLowerCase() === 'enter' && percent) {
-      if (percent <= 0) {
-        insertWarningMessage('Ingreso un porcentaje invalido.');
-        setTimeout(() => {
-          removeWarningMessage();
-        }, 3000);
-
-        return;
-      }
-
-      if (percentArr.includes(percent)) {
-        insertWarningMessage('Ingreso un porcentaje existente.');
-        setTimeout(() => {
-          removeWarningMessage();
-        }, 3000);
-
-        return;
-      }
-
-      removeWarningMessage();
-
-      let weightCalculated = weight ? calculatePercent(percent, weight) : 0;
-
-      let tr = buildItem(percent, weightCalculated);
-
-      percentInput.value = '';
-      percentNodesArr.push(tr);
-      percentArr.push(tr.percent);
-      let list = sortItems();
-
-      calculusBody.innerHTML = '';
-      calculusBody.append(...list);
+    if (evt.key.toLowerCase() === 'enter' && percentInput.value) {
+      addingPercent();
     }
   });
+};
+
+const addingPercent = () => {
+  let percent = parseInt(percentInput.value);
+  let weight = parseInt(currentWeight.innerHTML);
+
+  if (percent <= 0) {
+    insertWarningMessage('Ingreso un porcentaje invalido.');
+    setTimeout(() => {
+      removeWarningMessage();
+    }, 3000);
+
+    return;
+  }
+
+  if (percentArr.includes(percent)) {
+    insertWarningMessage('Ingreso un porcentaje existente.');
+    setTimeout(() => {
+      removeWarningMessage();
+    }, 3000);
+
+    return;
+  }
+
+  removeWarningMessage();
+
+  let weightCalculated = weight ? calculatePercent(percent, weight) : 0;
+
+  let tr = buildItem(percent, weightCalculated);
+
+  percentInput.value = '';
+  percentNodesArr.push(tr);
+  percentArr.push(tr.percent);
+  let list = sortItems();
+
+  calculusBody.innerHTML = '';
+  calculusBody.append(...list);
 };
 
 const addWeight = () => {
   weightInput.addEventListener('keydown', evt => {
     if (evt.key.toLowerCase() === 'enter' && weightInput.value > 0) {
-      let valuesActive = document.querySelectorAll('.valueOnPercent');
-      let weight = parseInt(weightInput.value);
-
-      if (valuesActive.length > 0) {
-        for (let node of [...valuesActive]) {
-          let percent = node.parentElement.parentElement.percent;
-
-          let total = calculatePercent(percent, weight);
-
-          node.innerHTML = `${total} KG`;
-        }
-      } else {
-        insertWarningMessage(`Ingrese algun porcentaje!`);
-      }
-
-      currentWeight.innerHTML = `${weight} KG`;
-
-      weightInput.value = '';
+      addingWeight();
     }
   });
+};
+
+const addingWeight = () => {
+  let valuesActive = document.querySelectorAll('.valueOnPercent');
+  let weight = parseInt(weightInput.value);
+
+  if (valuesActive.length > 0) {
+    for (let node of [...valuesActive]) {
+      let percent = node.parentElement.parentElement.percent;
+
+      let total = calculatePercent(percent, weight);
+
+      node.innerHTML = `${total} KG`;
+    }
+  } else {
+    insertWarningMessage(`Ingrese algun porcentaje!`);
+  }
+
+  currentWeight.innerHTML = `${weight} KG`;
+
+  weightInput.value = '';
 };
 
 const calculatePercent = (percent, weight) => {
@@ -121,3 +130,18 @@ const sortItems = () => {
 
 addPercent();
 addWeight();
+
+const peso = prompt('Ingrese el peso que desea calcular:');
+const porcentaje = prompt('Ingrese el porcentaje que desea calcular:');
+
+alert(`El ${porcentaje}% de ${peso}KG es: ${parseInt(peso * (porcentaje / 100))}KG`);
+
+weightInput.value = peso;
+percentInput.value = porcentaje;
+
+addingWeight();
+addingPercent();
+// let enterKeyPress = document.createEvent('KeyboardEvent');
+// enterKeyPress.initKeyboardEvent('keypress', true, true, null, false, false, false, false, 13, 0);
+
+// percentInput.dispatchEvent(enterKeyPress);
